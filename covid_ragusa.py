@@ -13,12 +13,11 @@ setup = Setup.Setup()
 token = setup.get_token()
 channel = setup.get_channel()
 
-df = pd.read_csv('https://query.data.world/s/ujfelswxlbunuxirtuetaagottcnyt')
-
-df.to_json('dati.json', 'records')
-
 
 def send_data_ragusa():
+    df = pd.read_csv('https://query.data.world/s/ujfelswxlbunuxirtuetaagottcnyt')
+    df.to_json('dati.json', 'records')
+
     with open('dati.json', 'r') as f:
         res = json.load(f)
 
@@ -105,8 +104,4 @@ def send_data_ragusa():
     bot.sendPhoto(token, channel, caption)
     plt.show()
 
-
-schedule.every().day.at("12:21").do(send_data_ragusa())
-while True:
-    schedule.run_pending()
-    time.sleep(60)
+send_data_ragusa()
